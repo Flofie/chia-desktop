@@ -31,6 +31,7 @@ const App = () => {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       refreshInterval: 1000,
+      isPaused: () => showAddDialog?.open === true,
     }
   );
   const isLoading = !requestError && !data;
