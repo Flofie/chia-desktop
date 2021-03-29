@@ -23,7 +23,7 @@ const Harvester: FC<HarvesterProps> = (props) => {
         </div>
       }
       items={[
-        `~ ${((parseInt(props.plotCount.toString(), 10) * 101) / 1024).toFixed(
+        `~ ${((parseInt(props.plotCount?.toString(), 10) * 101) / 1024).toFixed(
           2
         )} TB`,
       ]}

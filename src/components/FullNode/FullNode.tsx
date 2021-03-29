@@ -33,7 +33,7 @@ const FullNode: FC<FullNodeProps> = (props) => {
       items={[
         `height: ${props.height}`,
         `Estimated Network Space: ${(
-          parseInt(props.networkSpace.toString(), 10) /
+          parseInt(props.networkSpace?.toString(), 10) /
           1024 /
           1024 /
           1024 /
