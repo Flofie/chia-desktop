@@ -88,15 +88,17 @@ export default function init() {
               if (!wallet.id) {
                 continue;
               }
+              const balance =
+                wallet.balance.confirmed_wallet_balance / 1000000000000;
               result.push({
                 ...walletsEntity,
                 ...{
-                  balance: wallet.balance.confirmed_wallet_balance,
+                  balance,
                   height: wallet.height,
                 },
                 noData: false,
               } as any);
-              totalChiasEarned += wallet.balance.confirmed_wallet_balance;
+              totalChiasEarned += balance;
             }
           } else {
             result.push(walletsEntity as any);
