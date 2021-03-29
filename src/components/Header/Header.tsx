@@ -5,6 +5,7 @@ import { ReactComponent as Logo } from './logo.svg';
 
 export interface HeaderProps {
   onAddClick: (type: string) => void;
+  hideMenu?: boolean;
 }
 const Header = (props: HeaderProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,34 +25,40 @@ const Header = (props: HeaderProps) => {
         <Logo className="App-logo" />
         <Typography variant="h5">Desktop</Typography>
         <div style={{ flex: 1 }}></div>
-        <Button
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={handleMenuClick}
-          startIcon={<Add />}
-          variant="contained"
-          color="primary"
-        >
-          Add
-        </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
-          <MenuItem onClick={() => handleAddClick('fullNode')}>
-            FullNode
-          </MenuItem>
-          <MenuItem onClick={() => handleAddClick('wallet')}>Wallet</MenuItem>
-          <MenuItem onClick={() => handleAddClick('harvester')}>
-            Harvester
-          </MenuItem>
-          <MenuItem onClick={() => handleAddClick('chiaExplorer')}>
-            ChiaExplorer
-          </MenuItem>
-        </Menu>
+        {props.hideMenu === false && (
+          <>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleMenuClick}
+              startIcon={<Add />}
+              variant="contained"
+              color="primary"
+            >
+              Add
+            </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={() => handleAddClick('fullNode')}>
+                FullNode
+              </MenuItem>
+              <MenuItem onClick={() => handleAddClick('wallet')}>
+                Wallet
+              </MenuItem>
+              <MenuItem onClick={() => handleAddClick('harvester')}>
+                Harvester
+              </MenuItem>
+              <MenuItem onClick={() => handleAddClick('chiaExplorer')}>
+                ChiaExplorer
+              </MenuItem>
+            </Menu>
+          </>
+        )}
       </Toolbar>
     </header>
   );

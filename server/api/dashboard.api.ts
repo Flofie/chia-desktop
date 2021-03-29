@@ -110,7 +110,7 @@ export default function init() {
             archived: { $ne: true },
           });
           let chiaExplorerEntity = {
-            name: connection.name,
+            name: 'Top Farmer Rank',
             type: connection.type,
             timestamp: connection.timestamp,
             noData: true,
@@ -118,7 +118,9 @@ export default function init() {
           if (chiaExplorer) {
             chiaExplorerEntity = {
               ...chiaExplorerEntity,
-              ...{ rank: chiaExplorer.rank },
+              ...{
+                rank: `#${chiaExplorer?.rank ? chiaExplorer.rank : '> 50'}`,
+              },
               noData: false,
             };
           }
