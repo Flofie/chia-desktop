@@ -15,6 +15,7 @@ import { AxiosContext, configureAxios } from './axios';
 import { Connection } from './components/AddDialog/AddDialog';
 import DashboardCard from './components/DashboardCard/DashboardCard';
 import Empty from './components/Empty/Empty';
+import Error from './components/Error/Error';
 import FullNode from './components/FullNode/FullNode';
 import Harvester from './components/Harvester/Harvester';
 import Header from './components/Header/Header';
@@ -43,6 +44,14 @@ const App = () => {
   }>({ open: false, type: null });
   const [error, setError] = React.useState<null | string>(null);
 
+  if (requestError && !data) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Header onAddClick={handleAddClick} hideMenu={true} />
+        <Error />
+      </ThemeProvider>
+    );
+  }
   if (isLoading) {
     return (
       <ThemeProvider theme={theme}>

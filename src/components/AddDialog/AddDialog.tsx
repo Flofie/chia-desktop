@@ -6,8 +6,9 @@ import {
   DialogTitle,
   makeStyles,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
+import { Clear, Save } from '@material-ui/icons';
 import React, { FC, useState } from 'react';
 
 export interface AddDialogProps {
@@ -179,11 +180,15 @@ const AddDialog: FC<AddDialogProps> = (props) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleOnClose} color="primary">
-          Abbrechen
+        <Button onClick={handleOnClose} color="primary" startIcon={<Clear />}>
+          Cancel
         </Button>
-        <Button onClick={() => toggleOpen(state)} color="primary">
-          Ok
+        <Button
+          onClick={() => toggleOpen(state)}
+          color="primary"
+          startIcon={<Save />}
+        >
+          Add
         </Button>
       </DialogActions>
     </Dialog>
