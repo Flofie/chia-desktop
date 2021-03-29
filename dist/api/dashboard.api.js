@@ -10,7 +10,7 @@ function init() {
     const router = express_1.default.Router();
     const logger = logger_1.makeLogger('api.dashboard');
     router.get('/', async (req, res) => {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         logger.debug('get dashboard');
         logger.debug('try to get connections');
         const connections = await Database_1.db.connection.asyncFind({});
@@ -36,6 +36,7 @@ function init() {
                             ...{
                                 isSync: (_a = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _a === void 0 ? void 0 : _a.sync.synced,
                                 height: (_b = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _b === void 0 ? void 0 : _b.sync.sync_tip_height,
+                                networkSpace: (_c = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _c === void 0 ? void 0 : _c.space,
                             },
                             noData: false,
                         };
@@ -57,7 +58,7 @@ function init() {
                         harvesterEntity = {
                             ...harvesterEntity,
                             ...{
-                                plotCount: (_c = harvester === null || harvester === void 0 ? void 0 : harvester.plots) === null || _c === void 0 ? void 0 : _c.length,
+                                plotCount: (_d = harvester === null || harvester === void 0 ? void 0 : harvester.plots) === null || _d === void 0 ? void 0 : _d.length,
                             },
                             noData: false,
                         };
@@ -101,7 +102,7 @@ function init() {
                         archived: { $ne: true },
                     });
                     let chiaExplorerEntity = {
-                        name: connection.name,
+                        name: 'Top Farmer Rank',
                         type: connection.type,
                         timestamp: connection.timestamp,
                         noData: true,
@@ -109,7 +110,9 @@ function init() {
                     if (chiaExplorer) {
                         chiaExplorerEntity = {
                             ...chiaExplorerEntity,
-                            ...{ rank: chiaExplorer.rank },
+                            ...{
+                                data: (chiaExplorer === null || chiaExplorer === void 0 ? void 0 : chiaExplorer.rank) === -1 ? '> 50' : ` #${chiaExplorer.rank}`,
+                            },
                             noData: false,
                         };
                     }
@@ -119,11 +122,13 @@ function init() {
                     logger.error(`unknown type ${connection.type}`);
             }
         }
-        result.push({
-            name: 'Chias earned',
-            type: 'summary',
-            data: `${totalChiasEarned} XCH`,
-        });
+        if (result.filter((res) => res.type === 'wallet').length) {
+            result.push({
+                name: 'Chias earned',
+                type: 'summary',
+                data: `${totalChiasEarned} XCH`,
+            });
+        }
         return res.send(result);
     });
     return router;
