@@ -2,7 +2,8 @@
 
 A chia desktop dashboard build on the [Chia](https://www.chia.net/) RPC interface.
 
-# Image
+<img src="https://github.com/Flofie/chia-desktop/blob/chore/readme/desktop.png?raw=true" width="700" />
+<img src="https://github.com/Flofie/chia-desktop/blob/chore/readme/mobile.png?raw=true" width="200" />
 
 ### Getting started
 
