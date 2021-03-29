@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es2019",
+    "lib": ["es2019"],
+    "types": ["node", "express"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false
+  },
+  "exclude": ["server/**/*.spec.ts"],
+  "include": [
+    "server/**/*.ts"
+  ]
+}
