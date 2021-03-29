@@ -35,7 +35,7 @@ function init() {
                             ...fullNodeEntity,
                             ...{
                                 isSync: (_a = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _a === void 0 ? void 0 : _a.sync.synced,
-                                height: (_b = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _b === void 0 ? void 0 : _b.sync.sync_tip_height,
+                                height: (_b = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _b === void 0 ? void 0 : _b.peak.height,
                                 networkSpace: (_c = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _c === void 0 ? void 0 : _c.space,
                             },
                             noData: false,

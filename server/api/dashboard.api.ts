@@ -37,7 +37,7 @@ export default function init() {
               ...fullNodeEntity,
               ...{
                 isSync: fullNode?.blockchain_state?.sync.synced,
-                height: fullNode?.blockchain_state?.sync.sync_tip_height,
+                height: fullNode?.blockchain_state?.peak.height,
                 networkSpace: fullNode?.blockchain_state?.space,
               },
               noData: false,
