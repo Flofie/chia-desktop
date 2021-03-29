@@ -1,0 +1,21 @@
+.DashboardCard {
+  width: 200px;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgb(34, 43, 54) !important;
+  border-radius: 18px !important;
+  margin: 10px;
+}
+.DashboardCard-content {
+  width: 100%;
+}
+.DashboardCard-padding {
+  padding: 16px;
+}
+.DashboardCard-divider {
+  height: 1px !important;
+  background-color: rgba(145, 158, 171, 0.24) !important;
+}

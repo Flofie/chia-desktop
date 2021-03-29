@@ -2,7 +2,12 @@
   "name": "chia-desktop",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
+    "@loadable/component": "^5.14.1",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -10,17 +15,35 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "axios": "^0.21.1",
+    "chia-client": "^8.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "lodash": "^4.17.21",
+    "nedb": "^1.8.0",
+    "nedb-async": "^0.1.6",
+    "node-cron": "^3.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
+    "swr": "^0.5.4",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "uuid": "^8.3.2",
+    "web-vitals": "^1.0.1",
+    "winston": "^3.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node dist/index.js",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "server": "nodemon --watch *.ts --ignore *.spec.ts --ignore *.db --verbose --exec ts-node --project tsconfig.server.json server/index.ts ",
+    "server:test": "jest --passWithNoTests --testPathPattern=server --watchAll",
+    "server:build": "tsc --project tsconfig.server.json"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +62,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-typescript": "^7.13.0",
+    "@storybook/addon-actions": "^6.1.21",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.1.21",
+    "@storybook/node-logger": "^6.1.21",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.1.21",
+    "@types/express": "^4.17.11",
+    "@types/lodash": "^4.14.168",
+    "@types/nedb": "^1.8.11",
+    "@types/node-cron": "^2.0.3",
+    "babel-jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1"
   }
 }
