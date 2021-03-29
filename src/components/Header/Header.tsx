@@ -4,13 +4,15 @@ import React from 'react';
 import { ReactComponent as Logo } from './logo.svg';
 
 export interface HeaderProps {
-  onAddClick: (type: string) => void;
+  onAddClick?: (type: string) => void;
   hideMenu?: boolean;
 }
 const Header = (props: HeaderProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleAddClick = (type: string) => {
-    props.onAddClick(type);
+    if (props.onAddClick) {
+      props.onAddClick(type);
+    }
     handleMenuClose();
   };
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +27,7 @@ const Header = (props: HeaderProps) => {
         <Logo className="App-logo" />
         <Typography variant="h5">Desktop</Typography>
         <div style={{ flex: 1 }}></div>
-        {props.hideMenu === false && (
+        {!props.hideMenu && (
           <>
             <Button
               aria-controls="simple-menu"
