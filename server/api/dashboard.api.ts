@@ -119,7 +119,8 @@ export default function init() {
             chiaExplorerEntity = {
               ...chiaExplorerEntity,
               ...{
-                rank: `#${chiaExplorer?.rank ? chiaExplorer.rank : '> 50'}`,
+                data:
+                  chiaExplorer?.rank === -1 ? '> 50' : ` #${chiaExplorer.rank}`,
               },
               noData: false,
             };
@@ -131,12 +132,14 @@ export default function init() {
           logger.error(`unknown type ${connection.type}`);
       }
     }
+    if (result.filter((res) => res.type === 'wallet').length) {
+      result.push({
+        name: 'Chias earned',
+        type: 'summary',
+        data: `${totalChiasEarned} XCH`,
+      } as any);
+    }
 
-    result.push({
-      name: 'Chias earned',
-      type: 'summary',
-      data: `${totalChiasEarned} XCH`,
-    } as any);
     return res.send(result as any);
   });
 

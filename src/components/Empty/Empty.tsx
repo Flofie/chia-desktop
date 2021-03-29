@@ -5,10 +5,20 @@ import { ReactComponent as EmptyImage } from './empty.svg';
 const Empty = () => {
   return (
     <>
-      <Typography variant="h6" style={{}}>
-        No Connection added. Please add a connection in the upper right corner
-        to get started...
-      </Typography>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: '20px 10px 0 10px',
+        }}
+      >
+        <Typography variant="h6" style={{}}>
+          No Connection added. Please add a connection in the upper right corner
+          to get started...
+        </Typography>
+      </div>
       <div
         style={{
           display: 'flex',

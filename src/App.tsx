@@ -47,7 +47,7 @@ const App = () => {
   if (requestError && !data) {
     return (
       <ThemeProvider theme={theme}>
-        <Header onAddClick={handleAddClick} hideMenu={true} />
+        <Header hideMenu={true} />
         <Error />
       </ThemeProvider>
     );
@@ -64,7 +64,9 @@ const App = () => {
   const wallets = data.filter((item: any) => item.type === 'wallet');
   const fullNodes = data.filter((item: any) => item.type === 'fullNode');
   const harvesters = data.filter((item: any) => item.type === 'harvester');
-  const summaries = data.filter((item: any) => item.type === 'summary');
+  const summaries = data.filter(
+    (item: any) => item.type === 'summary' || item.type === 'chiaExplorer'
+  );
 
   const LoadableAddDialog = loadable(async () => {
     return import('./components/AddDialog/AddDialog');
@@ -94,8 +96,6 @@ const App = () => {
     );
   };
 
-  const empty = false;
-
   return (
     <AxiosContext.Provider value={axios}>
       <ThemeProvider theme={theme}>
@@ -103,7 +103,7 @@ const App = () => {
         <div>
           <Header onAddClick={handleAddClick} />
           <div className="App-body">
-            {empty ? (
+            {data.length === 0 ? (
               <Empty />
             ) : (
               <>
