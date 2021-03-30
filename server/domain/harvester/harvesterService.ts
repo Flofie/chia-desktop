@@ -13,6 +13,7 @@ export class HarvesterService extends BaseService {
       certPath: this.connection.crt,
       keyPath: this.connection.key,
     });
-    return harvesterClient.getPlots();
+    const plots = (await harvesterClient.getPlots()) as { plots: string[] };
+    return { plotCount: plots?.plots?.length };
   }
 }

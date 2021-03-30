@@ -1,8 +1,6 @@
-import { keyBy } from 'lodash';
 import { Wallet } from '../../chia-client';
 import { makeLogger } from '../../logger';
 import { BaseService } from '../baseService/baseService';
-
 export class WalletService extends BaseService {
   logger = makeLogger('domain.WalletService');
 
@@ -24,11 +22,15 @@ export class WalletService extends BaseService {
       wallets.map(async (wallet) => {
         const balance = await walletClient.getWalletBalance(wallet.id as any);
         this.logger.debug('got balance', balance);
-        return { ...wallet, balance, height };
+        return {
+          ...wallet,
+          balance: balance.confirmed_wallet_balance / 1000000000000,
+          height,
+        };
       })
     );
     this.logger.debug('exntendedWallets', extendedWallets);
-    return keyBy(extendedWallets, 'id');
+    return { wallets: extendedWallets };
   }
 
   // async getPublicKeys(): Promise<string[]> {

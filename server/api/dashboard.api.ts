@@ -36,9 +36,9 @@ export default function init() {
             fullNodeEntity = {
               ...fullNodeEntity,
               ...{
-                isSync: fullNode?.blockchain_state?.sync.synced,
-                height: fullNode?.blockchain_state?.peak.height,
-                networkSpace: fullNode?.blockchain_state?.space,
+                isSync: fullNode?.blockchain_state?.sync?.synced || false,
+                height: fullNode?.blockchain_state?.peak?.height || 0,
+                networkSpace: fullNode?.blockchain_state?.space || 0,
               },
               noData: false,
             };
@@ -64,7 +64,7 @@ export default function init() {
             harvesterEntity = {
               ...harvesterEntity,
               ...{
-                plotCount: harvester?.plots?.length,
+                plotCount: harvester?.plotCount,
               },
               noData: false,
             };
@@ -84,12 +84,8 @@ export default function init() {
             noData: true,
           };
           if (wallets) {
-            for (const wallet of Object.values(wallets)) {
-              if (!wallet.id) {
-                continue;
-              }
-              const balance =
-                wallet.balance.confirmed_wallet_balance / 1000000000000;
+            for (const wallet of wallets.wallets) {
+              const balance = wallet.balance;
               result.push({
                 ...walletsEntity,
                 ...{

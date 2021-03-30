@@ -3,6 +3,7 @@ import { makeLogger } from '../../logger';
 import { ChiaExplorerService } from '../chiaExplorer/chiaExplorerService';
 import { FullNodeService } from '../fullNode/fullNodeService';
 import { HarvesterService } from '../harvester/harvesterService';
+import { walletDifferFct } from '../wallet/walletDifferFct';
 import { WalletService } from '../wallet/walletService';
 
 export class DataFetcherService {
@@ -26,7 +27,7 @@ export class DataFetcherService {
         case 'wallet':
           try {
             const walletService = new WalletService(connection);
-            await walletService.updateRecord();
+            await walletService.updateRecordWithHistory(walletDifferFct);
           } catch (error) {
             this.logger.error(error);
             continue;
@@ -35,7 +36,9 @@ export class DataFetcherService {
         case 'harvester':
           try {
             const harvesterService = new HarvesterService(connection);
-            await harvesterService.updateRecord();
+            await harvesterService.updateRecordWithHistory(
+              (a, b) => a?.plotCount !== b?.plotCount
+            );
           } catch (error) {
             this.logger.error(error);
             continue;
@@ -44,7 +47,9 @@ export class DataFetcherService {
         case 'chiaExplorer':
           try {
             const chiaExplorerService = new ChiaExplorerService(connection);
-            await chiaExplorerService.updateRecord();
+            await chiaExplorerService.updateRecordWithHistory(
+              (a, b) => a?.rank !== -1 && a?.rank !== b?.rank
+            );
             break;
           } catch (error) {
             this.logger.error(error);
