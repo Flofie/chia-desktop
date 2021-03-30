@@ -10,6 +10,7 @@ class HarvesterService extends baseService_1.BaseService {
         this.logger = logger_1.makeLogger('domain.HarvesterService');
     }
     async fetchNewInfos() {
+        var _a;
         this.logger.debug('fetchNewInfos');
         const harvesterClient = new chia_client_1.Harvester({
             hostname: this.connection.host,
@@ -17,7 +18,8 @@ class HarvesterService extends baseService_1.BaseService {
             certPath: this.connection.crt,
             keyPath: this.connection.key,
         });
-        return harvesterClient.getPlots();
+        const plots = (await harvesterClient.getPlots());
+        return { plotCount: (_a = plots === null || plots === void 0 ? void 0 : plots.plots) === null || _a === void 0 ? void 0 : _a.length };
     }
 }
 exports.HarvesterService = HarvesterService;

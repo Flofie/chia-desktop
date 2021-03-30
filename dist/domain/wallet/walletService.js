@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WalletService = void 0;
-const lodash_1 = require("lodash");
 const chia_client_1 = require("../../chia-client");
 const logger_1 = require("../../logger");
 const baseService_1 = require("../baseService/baseService");
@@ -38,10 +37,14 @@ class WalletService extends baseService_1.BaseService {
         const extendedWallets = await Promise.all(wallets.map(async (wallet) => {
             const balance = await walletClient.getWalletBalance(wallet.id);
             this.logger.debug('got balance', balance);
-            return { ...wallet, balance, height };
+            return {
+                ...wallet,
+                balance: balance.confirmed_wallet_balance / 1000000000000,
+                height,
+            };
         }));
         this.logger.debug('exntendedWallets', extendedWallets);
-        return lodash_1.keyBy(extendedWallets, 'id');
+        return { wallets: extendedWallets };
     }
 }
 exports.WalletService = WalletService;

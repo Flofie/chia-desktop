@@ -10,7 +10,7 @@ function init() {
     const router = express_1.default.Router();
     const logger = logger_1.makeLogger('api.dashboard');
     router.get('/', async (req, res) => {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         logger.debug('get dashboard');
         logger.debug('try to get connections');
         const connections = await Database_1.db.connection.asyncFind({});
@@ -34,9 +34,9 @@ function init() {
                         fullNodeEntity = {
                             ...fullNodeEntity,
                             ...{
-                                isSync: (_a = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _a === void 0 ? void 0 : _a.sync.synced,
-                                height: (_b = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _b === void 0 ? void 0 : _b.peak.height,
-                                networkSpace: (_c = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _c === void 0 ? void 0 : _c.space,
+                                isSync: ((_b = (_a = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _a === void 0 ? void 0 : _a.sync) === null || _b === void 0 ? void 0 : _b.synced) || false,
+                                height: ((_d = (_c = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _c === void 0 ? void 0 : _c.peak) === null || _d === void 0 ? void 0 : _d.height) || 0,
+                                networkSpace: ((_e = fullNode === null || fullNode === void 0 ? void 0 : fullNode.blockchain_state) === null || _e === void 0 ? void 0 : _e.space) || 0,
                             },
                             noData: false,
                         };
@@ -58,7 +58,7 @@ function init() {
                         harvesterEntity = {
                             ...harvesterEntity,
                             ...{
-                                plotCount: (_d = harvester === null || harvester === void 0 ? void 0 : harvester.plots) === null || _d === void 0 ? void 0 : _d.length,
+                                plotCount: harvester === null || harvester === void 0 ? void 0 : harvester.plotCount,
                             },
                             noData: false,
                         };
@@ -77,11 +77,8 @@ function init() {
                         noData: true,
                     };
                     if (wallets) {
-                        for (const wallet of Object.values(wallets)) {
-                            if (!wallet.id) {
-                                continue;
-                            }
-                            const balance = wallet.balance.confirmed_wallet_balance / 1000000000000;
+                        for (const wallet of wallets.wallets) {
+                            const balance = wallet.balance;
                             result.push({
                                 ...walletsEntity,
                                 ...{
